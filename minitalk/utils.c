@@ -5,12 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdone <mdone@student.42kocaeli.com.tr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 18:27:22 by mdone             #+#    #+#             */
-/*   Updated: 2023/10/16 19:44:20 by mdone            ###   ########.fr       */
+/*   Created: 2023/11/05 13:46:03 by mdone             #+#    #+#             */
+/*   Updated: 2023/11/05 14:54:55 by mdone            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	ft_atoi(char *str)
+{
+	int	i;
+	int	result;
+
+	i = 0;
+	result = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10;
+		result += str[i] - 48;
+		i++;
+	}
+	return (result);
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write (fd, &c, 1);
+}
 
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -30,55 +61,3 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putnbr_fd(nb % 10, fd);
 	}
 }
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-char *binary_to(char *str) {
-    
-    size_t len = strlen(str);
-    char *result = (char *)malloc((len * 8 + 1) * sizeof(char));
-    if (result == NULL) {
-        return NULL;
-    }
-
-    int resultIndex = 0;
-    int i = 0;
-    while (i < len) {
-        char bnry[9];
-        binary_to_two((int)str[i], bnry, 7);
-        binary_to_three(bnry, result, &resultIndex, len);
-        i++;
-    }
-
-    return result;
-}
-
-void binary_to_two(int nbr, char bnry[], int j) {
-    while (nbr) {
-        if (nbr % 2 == 0) {
-            bnry[j] = '0';
-        } else {
-            bnry[j] = '1';
-        }
-        nbr /= 2;
-        j--;
-    }
-    while (j >= 0) {
-        bnry[j] = '0';
-        j--;
-    }
-    bnry[8] = '\0';
-}
-
-void binary_to_three(char bnry[], char result[], int *resultIndex, int len) {
-    int k = 0;
-    while (k < 8) {
-        result[(*resultIndex)] = bnry[k];
-        (*resultIndex)++;
-        k++;
-    }
-}
-
